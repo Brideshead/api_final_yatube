@@ -1,11 +1,10 @@
 from typing import List
-
 from django.shortcuts import get_object_or_404
 from rest_framework import filters, mixins, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import (
-    IsAuthenticated,
     IsAuthenticatedOrReadOnly,
+    IsAuthenticated,
 )
 
 from api.permissions import AuthorPermission
@@ -15,6 +14,7 @@ from api.serializers import (
     GroupSerializer,
     PostSerializer,
 )
+
 from posts.models import Group, Post
 
 
@@ -40,7 +40,7 @@ class FollowViewSet(mixins.CreateModelMixin,
     Авторизированные пользователи могут:
 
     1) get_queryset() - получать список подписчиков на автора.
-    2) perform_create() - подписаться на автора.
+    2) perform_create() - создавать комментарии.
 
     Удалять и обновлять комментарии могут только
     пользователи-авторы.
@@ -61,6 +61,13 @@ class FollowViewSet(mixins.CreateModelMixin,
         return self.request.user.follower
 
     def perform_create(self, serializer: FollowSerializer) -> None:
+        """
+        Авт. пользователи могут подписываться.
+
+        Args:
+            serializer: преобразование POST запроса
+                в JSON объект со всей информацией о пользователе.
+        """
         serializer.save(user=self.request.user)
 
 

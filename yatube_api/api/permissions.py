@@ -17,8 +17,7 @@ class AuthorPermission(permissions.BasePermission):
         obj: object,
     ) -> bool:
         del _view
-
         return (
             request.method in permissions.SAFE_METHODS
-            or obj.author == request.user,
+            or obj.author == request.user
         )
