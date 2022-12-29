@@ -1,5 +1,5 @@
 from django.http import HttpRequest
-from rest_framework import permissions
+from rest_framework import permissions, viewsets
 
 
 class AuthorPermission(permissions.BasePermission):
@@ -13,7 +13,7 @@ class AuthorPermission(permissions.BasePermission):
     def has_object_permission(
         self,
         request: HttpRequest,
-        _view: None,
+        _view: viewsets,
         obj: object,
     ) -> bool:
         del _view

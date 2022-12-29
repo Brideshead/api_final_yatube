@@ -1,10 +1,11 @@
 from typing import List
+
 from django.shortcuts import get_object_or_404
 from rest_framework import filters, mixins, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly,
     IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
 )
 
 from api.permissions import AuthorPermission
@@ -14,7 +15,6 @@ from api.serializers import (
     GroupSerializer,
     PostSerializer,
 )
-
 from posts.models import Group, Post
 
 
@@ -31,9 +31,11 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class FollowViewSet(mixins.CreateModelMixin,
-                    mixins.ListModelMixin,
-                    viewsets.GenericViewSet):
+class FollowViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+):
     """
     Вьюсет для модели Follow.
 

@@ -68,16 +68,16 @@ class FollowSerializer(serializers.ModelSerializer):
             ),
         )
 
-    def validate(self, data: Dict[str, str]) -> Dict[str, str]:
+    def validate_following(self, data: Dict[str, str]) -> Dict[str, str]:
         """
         Проверка валидности данных.
 
         Пользователь не может подписаться на самого себя.
 
         Returns:
-            Данные о пользователе и статусе подписки.
+            Данные о пользователе и статусе.
         """
-        if data['user'] == data['following']:
+        if data == self.context['request'].user:
             raise serializers.ValidationError(
                 'Нельзя подписаться на самого себя!',
             )

@@ -43,6 +43,7 @@ class Post(models.Model):
             новой записи можно было сослаться на данную модель.
         image: Возможность прикрепления изображения к посту.
     """
+
     text = models.TextField(
         'текст поста',
         help_text='Введите текст поста',
@@ -133,6 +134,7 @@ class Follow(models.Model):
             при удалении из таблицы User автора,
             также будут удалены данные о статусе подписки.
     """
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
